@@ -29,10 +29,13 @@ function optionChanged(selectedID){
         panelDisplay.append("p").text('${item[0]}: ${item[1]}')
     });
 
-    // Bar chart
+    // Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
     // Filter sample array data for the selected ID
     const sampleID = data.samples.filter(item => parseInt(item.id) == selectedID);
 
+    // Use sample_values as the values for the bar chart.
+    // Use otu_ids as the labels for the bar chart.
+    // Use otu_labels as the hovertext for the chart.
     // Slice top 10 samples
     var sampleValues = sampleID[0].sample_values.slice(0,10);
     sampleValues = sampleValues.reverse();
@@ -51,7 +54,7 @@ function optionChanged(selectedID){
         type: 'bar',
         orientation: 'h',
         text: otuLabels,
-    }
+    },
     layout = {
         title: 'Top 10 Operational Taxonomic Units (OTUs)',
         yaxis: {title: 'OTU ID'},
@@ -59,7 +62,40 @@ function optionChanged(selectedID){
     };
     // Plot chart using ploty
     Plotly.newPlot('bar', [trace], layout, {responsive: true});
-})
+
+    // Create a bubble chart that displays each sample
+    // Use otu_ids for the x values.
+    // Use sample_values for the y values.
+    // Use sample_values for the marker size.
+    // Use otu_ids for the marker colors.
+    // Use otu_labels for the text values.
+    // Remove sample values and otuid from individual
+    var sampleValues1 = sampleID[0].sample_values;
+    var otuID1 = sampleID[0].otu_ids;
+
+    // Define the layout and trace objects
+    const trace1 = {
+        x: otuID1,
+        y: sampleValues1,
+        mode: 'markers',
+        marker: {
+            color: otuID1,
+            size: sampleValues1
+        }
+    },
+    layout1 = {
+        title: '<b>OTU Samples</b>',
+        yaxis: {title: 'Samples Collected'},
+        xaxis: {title: 'OTU ID'},
+        showlegend: false,
+        height: 500,
+        width: 1200
+        };
+    // Plot chart using plotly
+    Plotly.newPlot('bubble', [trace1], layout1);
+
+
+});
      
 //})
 //}
