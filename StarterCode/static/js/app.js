@@ -32,6 +32,33 @@ function optionChanged(selectedID){
     // Bar chart
     // Filter sample array data for the selected ID
     const sampleID = data.samples.filter(item => parseInt(item.id) == selectedID);
+
+    // Slice top 10 samples
+    var sampleValues = sampleID[0].sample_values.slice(0,10);
+    sampleValues = sampleValues.reverse();
+    var otuID = sampleID[0].otu_ids.slice(0,10);
+    otuID = otuID.reverse();
+    var otuLabels = sampleID[0].otu_labels
+    otuLabels = otuLabels.reverse();
+
+    // Define Y axis 
+    const yaxis = otuID.map(item => 'OTU' + " " + item);
+
+    // Define the layout and trace objects
+    const trace = {
+        y: yaxis,
+        x: sampleValues,
+        type: 'bar',
+        orientation: 'h',
+        text: otuLabels,
+    }
+    layout = {
+        title: 'Top 10 Operational Taxonomic Units (OTUs)',
+        yaxis: {title: 'OTU ID'},
+        xaxis: {title: 'Samples Collected'}
+    };
+    // Plot chart using ploty
+    Plotly.newPlot('bar', [trace], layout, {responsive: true});
 })
      
 //})
