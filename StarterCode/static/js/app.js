@@ -1,7 +1,7 @@
 // Function that would create a dynamic dropdown menu
 function optionChanged(selectedID){
     //Verify if object is selected in dropdown
-    console.log(selectedID);}
+    console.log(selectedID);
 
     // Read samples json file for the data
     d3.json("samples.json").then((data) => {
@@ -14,8 +14,8 @@ function optionChanged(selectedID){
     data.metadata.forEach(item => {
         d3.select("#selDataset").append('option').attr('value', item.id).text(item.id);
         });
-    selectedID = d3.select("#selDataset").node().value;
-    //d3.select("#selDataset").node().value = selectedID;
+        
+    d3.select("#selDataset").node().value = selectedID;
     
     // Filter metadata for selected id from dropdown
     const metadataID = data.metadata.filter(item => (item.id == selectedID));
@@ -138,7 +138,7 @@ const gaugeLayout = {width: 500, height: 400, margin: {t: 0, b: 0},
 // Plot using Plotly
 Plotly.newPlot('gauge', guageData, gaugeLayout);
 });
-
+}
 // //Function that would create a dynamic dropdown menu
 // function optionChanged(selectedID){
 //     // Verify if object is selected in dropdown
