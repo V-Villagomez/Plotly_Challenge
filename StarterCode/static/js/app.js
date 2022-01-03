@@ -14,7 +14,7 @@ function optionChanged(selectedID){
     data.metadata.forEach(item => {
         d3.select("#selDataset").append('option').attr('value', item.id).text(item.id);
         });
-        
+
     d3.select("#selDataset").node().value = selectedID;
     
     // Filter metadata for selected id from dropdown
@@ -96,7 +96,7 @@ layout1 = {
     yaxis: {title: 'Samples Collected'},
     xaxis: {title: 'OTU ID'},
     showlegend: false,
-    height: 500,
+    height: 800,
     width: 1200
     };
 // Plot chart using plotly
